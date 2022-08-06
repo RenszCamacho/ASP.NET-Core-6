@@ -21,5 +21,13 @@ namespace WebApiAutores.Controllers
         {
             return await _context.Autores.ToListAsync();
         }
+
+        [HttpPost("Create")]
+        public async Task<ActionResult> Post(Autor autor)
+        {
+            _context.Add(autor);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
