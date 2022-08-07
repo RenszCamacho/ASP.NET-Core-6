@@ -13,7 +13,7 @@ namespace WebApiAutores.Controllers
 
         public AutoresController(ApplicationDbContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         [HttpGet("GetAll")]
@@ -38,7 +38,29 @@ namespace WebApiAutores.Controllers
                 return BadRequest("El id del autor no coincide con el id de la URL");
             }
 
+            var isThereAuthor = await _context.Autores.AnyAsync(x => x.Id == id);
+
+            if (!isThereAuthor)
+            {
+                return NotFound();
+            }
+
             _context.Update(autor);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete("Delete")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var isThereAuthor = await _context.Autores.AnyAsync(x => x.Id == id);
+
+            if (!isThereAuthor)
+            {
+                return NotFound();
+            }
+
+            _context.Remove(new Autor() { Id = id});
             await _context.SaveChangesAsync();
             return Ok();
         }
