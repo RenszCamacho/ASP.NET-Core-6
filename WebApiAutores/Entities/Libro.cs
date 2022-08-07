@@ -1,6 +1,6 @@
 ﻿namespace WebApiAutores.Entities
 {
-    public class Libros
+    public class Libro
     {
         public int Id { get; set; }
         public string Title { get; set; }
