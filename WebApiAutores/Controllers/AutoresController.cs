@@ -19,7 +19,9 @@ namespace WebApiAutores.Controllers
         [HttpGet("GetAll")]
         public async Task<ActionResult<List<Autor>>> Get()
         {
-            return await _context.Autores.ToListAsync();
+            return await _context.Autores
+                .Include(x => x.Libros)
+                .ToListAsync();
         }
 
         [HttpPost("Create")]
