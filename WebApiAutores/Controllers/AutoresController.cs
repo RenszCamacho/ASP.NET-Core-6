@@ -26,13 +26,13 @@ namespace WebApiAutores.Controllers
         }
 
         [HttpGet("Primero")]
-        public async Task<ActionResult<Autor>> PrimerAutor()
+        public async Task<ActionResult<Autor>> PrimerAutor([FromHeader] int miValor, [FromQuery] string nombre)
         {
             return await _context.Autores.FirstOrDefaultAsync();
         }
 
         [HttpGet("{name}")]
-        public async Task<ActionResult<Autor>> Get(string name)
+        public async Task<ActionResult<Autor>> Get([FromRoute]string name)
         {
             var autor = await _context.Autores.FirstOrDefaultAsync(x => x.Name.Contains(name));
 
@@ -58,7 +58,7 @@ namespace WebApiAutores.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult> Post(Autor autor)
+        public async Task<ActionResult> Post([FromBody]Autor autor)
         {
             _context.Add(autor);
             await _context.SaveChangesAsync();
