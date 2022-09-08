@@ -26,14 +26,11 @@ namespace WebApiAutores
                         .UseSqlServer(Configuration.GetConnectionString("defaultConnection"))
                  );
 
-            // Transitorio no ocupa estado, es una instancia distinta, aunque se dentro del mismo contexto http.
-            // Scope si vas a trabajar siempre con los mismos datos, es la misma instancia dentro del mismo contexto.
-            // Singleton si va a tener la misma data compartida entre todos, es la misma instancia de la clase.
             services.AddTransient<IServicio, ServicioA>();
 
-            services.AddTransient<ServicioTransient>();
-            services.AddScoped<ServicioScoped>();
-            services.AddSingleton<ServicioSingleton>();
+            services.AddTransient<ServicioTransient>(); // Transitorio no ocupa estado, es una instancia distinta, aunque se dentro del mismo contexto http.
+            services.AddScoped<ServicioScoped>();  // Scope si vas a trabajar siempre con los mismos datos, es la misma instancia dentro del mismo contexto.
+            services.AddSingleton<ServicioSingleton>();  // Singleton si va a tener la misma data compartida entre todos, es la misma instancia de la clase.
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
