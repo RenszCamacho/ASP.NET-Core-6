@@ -60,7 +60,7 @@ namespace WebApiAutores.Controllers
                 .ToListAsync();
         }
 
-        [HttpGet("Primero")]
+       [HttpGet("Primero")]
         public async Task<ActionResult<Autor>> PrimerAutor([FromHeader] int miValor, [FromQuery] string nombre)
         {
             return await _context.Autores.FirstOrDefaultAsync();
