@@ -1,5 +1,13 @@
 ﻿namespace WebApiAutores.Middlewares
 {
+    public static class LogearRespuestaHTTPMiddlewareExtensions
+    {
+        public static IApplicationBuilder UseLogearRespuestaHTTP(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<LogearRespuestaHTTPMiddleware>();
+        }
+    }
+
     public class LogearRespuestaHTTPMiddleware
     {
         private readonly RequestDelegate siguiente;
@@ -11,24 +19,24 @@
             this.logger = logger;
         }
 
-          public async Task InvokeAsync(HttpContext context)
-          {
-              using (var ms = new MemoryStream())
-              {
-                  var cuerpoOriginalRespuesta = context.Response.Body;
-                  context.Response.Body = ms;
+        public async Task InvokeAsync(HttpContext context)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var cuerpoOriginalRespuesta = context.Response.Body;
+                context.Response.Body = ms;
 
-                  await siguiente(context);
+                await siguiente(context);
 
-                  ms.Seek(0, SeekOrigin.Begin);
-                  string respuesta = new StreamReader(ms).ReadToEnd();
-                  ms.Seek(0, SeekOrigin.Begin);
+                ms.Seek(0, SeekOrigin.Begin);
+                string respuesta = new StreamReader(ms).ReadToEnd();
+                ms.Seek(0, SeekOrigin.Begin);
 
-                  await ms.CopyToAsync(cuerpoOriginalRespuesta);
-                  context.Response.Body = cuerpoOriginalRespuesta;
+                await ms.CopyToAsync(cuerpoOriginalRespuesta);
+                context.Response.Body = cuerpoOriginalRespuesta;
 
-                  logger.LogInformation(respuesta);
-              }
-          }
+                logger.LogInformation(respuesta);
+            }
+        }
     }
 }

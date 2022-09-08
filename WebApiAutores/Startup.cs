@@ -42,7 +42,7 @@ namespace WebApiAutores
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            app.UseMiddleware<LogearRespuestaHTTPMiddleware>();
+            app.UseLogearRespuestaHTTP();
 
             app.Map("/ruta1", app =>
             {
