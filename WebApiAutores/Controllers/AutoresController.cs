@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApiAutores.Entities;
+using WebApiAutores.Filtros;
 using WebApiAutores.Servicios;
 
 namespace WebApiAutores.Controllers
@@ -34,6 +35,8 @@ namespace WebApiAutores.Controllers
         }
 
         [HttpGet("GUID")]
+        /* [ResponseCache(Duration = 10)] */
+        [ServiceFilter(typeof(MiFiltroDeAccion))]
         public ActionResult ObetenerGuids()
         {
             return Ok(new
@@ -51,6 +54,7 @@ namespace WebApiAutores.Controllers
 
         [HttpGet("GetAll")]
         [HttpGet]
+        [ServiceFilter(typeof(MiFiltroDeAccion))]
         public async Task<ActionResult<List<Autor>>> Get()
         {
             _logger.LogInformation("Estamos obteniendo los autores");
@@ -60,7 +64,7 @@ namespace WebApiAutores.Controllers
                 .ToListAsync();
         }
 
-       [HttpGet("Primero")]
+        [HttpGet("Primero")]
         public async Task<ActionResult<Autor>> PrimerAutor([FromHeader] int miValor, [FromQuery] string nombre)
         {
             return await _context.Autores.FirstOrDefaultAsync();
