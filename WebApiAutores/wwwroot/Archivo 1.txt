@@ -1,0 +1,17 @@
+Proceso iniciado
+Proceso en ejecucion: 08/09/2022 06:00:42
+Proceso en ejecucion: 08/09/2022 06:00:47
+Proceso en ejecucion: 08/09/2022 06:00:52
+Proceso en ejecucion: 08/09/2022 06:00:57
+Proceso en ejecucion: 08/09/2022 06:01:02
+Proceso en ejecucion: 08/09/2022 06:01:07
+Proceso en ejecucion: 08/09/2022 06:01:12
+Proceso en ejecucion: 08/09/2022 06:01:17
+Proceso en ejecucion: 08/09/2022 06:01:22
+Proceso en ejecucion: 08/09/2022 06:01:27
+Proceso en ejecucion: 08/09/2022 06:01:32
+Proceso en ejecucion: 08/09/2022 06:01:37
+Proceso en ejecucion: 08/09/2022 06:01:42
+Proceso en ejecucion: 08/09/2022 06:01:47
+Proceso en ejecucion: 08/09/2022 06:01:52
+Proceso finalizado

@@ -34,6 +34,7 @@ namespace WebApiAutores
             services.AddScoped<ServicioScoped>();  // Scope si vas a trabajar siempre con los mismos datos, es la misma instancia dentro del mismo contexto.
             services.AddSingleton<ServicioSingleton>();  // Singleton si va a tener la misma data compartida entre todos, es la misma instancia de la clase.
             services.AddTransient<MiFiltroDeAccion>();
+            services.AddHostedService<EscribirEnArchivo>();
 
             services.AddResponseCaching();
 
