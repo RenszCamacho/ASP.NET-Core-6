@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using WebApiAutores.Middlewares;
 using WebApiAutores.Servicios;
 
 namespace WebApiAutores
@@ -39,8 +40,18 @@ namespace WebApiAutores
             services.AddSwaggerGen();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            app.UseMiddleware<LogearRespuestaHTTPMiddleware>();
+
+            app.Map("/ruta1", app =>
+            {
+                app.Run(async contexto =>
+                {
+                    await contexto.Response.WriteAsync("Estoy interceptando la tubería");
+                });
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseSwagger();
