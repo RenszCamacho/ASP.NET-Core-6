@@ -19,7 +19,7 @@ namespace WebApiAutores
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddControllers()
+                .AddControllers(o => { o.Filters.Add(typeof(FiltroDeExepcion)); })
                 .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             services

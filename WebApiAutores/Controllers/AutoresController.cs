@@ -57,6 +57,8 @@ namespace WebApiAutores.Controllers
         [ServiceFilter(typeof(MiFiltroDeAccion))]
         public async Task<ActionResult<List<Autor>>> Get()
         {
+            throw new NotImplementedException();
+
             _logger.LogInformation("Estamos obteniendo los autores");
             _logger.LogWarning("Este es un mensaje de Aviso!");
             return await _context.Autores
