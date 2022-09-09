@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApiAutores.Entities;
-using WebApiAutores.Filtros;
-using WebApiAutores.Servicios;
 
 namespace WebApiAutores.Controllers
 {
@@ -11,65 +9,20 @@ namespace WebApiAutores.Controllers
     public class AutoresController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly IServicio _servicio;
-        private readonly ServicioTransient _servicioTransient;
-        private readonly ServicioScoped _servicioScoped;
-        private readonly ServicioSingleton _servicioSingleton;
-        private readonly ILogger<AutoresController> _logger;
 
         public AutoresController(
-            ApplicationDbContext context,
-            IServicio servicio,
-            ServicioTransient servicioTransient,
-            ServicioScoped servicioScoped,
-            ServicioSingleton servicioSingleton,
-            ILogger<AutoresController> logger
+            ApplicationDbContext context
             )
         {
             _context = context;
-            _servicio = servicio;
-            _servicioTransient = servicioTransient;
-            _servicioScoped = servicioScoped;
-            _servicioSingleton = servicioSingleton;
-            _logger = logger;
-        }
-
-        [HttpGet("GUID")]
-        /* [ResponseCache(Duration = 10)] */
-        [ServiceFilter(typeof(MiFiltroDeAccion))]
-        public ActionResult ObetenerGuids()
-        {
-            return Ok(new
-            {
-                AutoresController_Transient = _servicioTransient.Guid,
-                ServicioA_Transient = _servicio.ObternerTransient(),
-
-                AutoresController_Scoped = _servicioScoped.Guid,
-                ServicioA_Scoped = _servicio.ObternerScoped(),
-
-                AutoresController_Singleton = _servicioSingleton.Guid,
-                ServicioA_Singleton = _servicio.ObternerSingleton(),
-            });
         }
 
         [HttpGet("GetAll")]
-        [HttpGet]
-        [ServiceFilter(typeof(MiFiltroDeAccion))]
         public async Task<ActionResult<List<Autor>>> Get()
         {
-            throw new NotImplementedException();
-
-            _logger.LogInformation("Estamos obteniendo los autores");
-            _logger.LogWarning("Este es un mensaje de Aviso!");
             return await _context.Autores
-                .Include(x => x.Libros)
+                /* .Include(x => x.Libros) */
                 .ToListAsync();
-        }
-
-        [HttpGet("Primero")]
-        public async Task<ActionResult<Autor>> PrimerAutor([FromHeader] int miValor, [FromQuery] string nombre)
-        {
-            return await _context.Autores.FirstOrDefaultAsync();
         }
 
         [HttpGet("{name}")]
